@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Whatsapp clone</string>
+    <string name="welcome_to_whatsapp">Welcome to whatsApp</string>
+    <string name="read_our_privacy_policy_tap_agree_and_continue_to_accept_the_terms_of_service">Read our Privacy Policy. Tap Agree and continueto accept the Terms of Service</string>
+    <string name="agree_and_continue">agree and continue</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="whatsapp_will_send_an_sms_message_to_verify_your_phone_number">WhatsApp will send an SMS message to verify your phone number</string>
+    <string name="plus">+</string>
+    <string name="phone_number">Phone number</string>
+    <string name="carrier_sms_charges_may_apply">Carrier SMS charges may apply</string>
+    <string name="next">NEXT</string>
 </resources>

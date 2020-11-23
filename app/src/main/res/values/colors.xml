@@ -7,4 +7,5 @@
     <color name="checkmark_blue">#34B7F1</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#ECE5DD</color>
+    <color name="black">#000000</color>
 </resources>
