@@ -1,9 +1,13 @@
 package com.whatsappclone.modelClass;
 
-public class ClassModel {
+public class Model {
     String otp;
 
-    public ClassModel() {
+    public Model() {
+    }
+
+    public Model(String otp) {
+        this.otp = otp;
     }
 
     public String getOtp() {

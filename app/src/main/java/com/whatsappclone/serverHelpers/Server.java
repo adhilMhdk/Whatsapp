@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Server {
 
     public RetrofitInterface retrofitInterface;
-    public String BASE_URL = "http://ec2-18-221-31-144.us-east-2.compute.amazonaws.com:3000";
+    public String BASE_URL = "http://192.168.225.106:3000";
 
     public Server() {
         Retrofit retrofit = new Retrofit.Builder()

@@ -9,4 +9,6 @@
     <string name="phone_number">Phone number</string>
     <string name="carrier_sms_charges_may_apply">Carrier SMS charges may apply</string>
     <string name="next">NEXT</string>
+    <string name="verify_your_phone_number">Verify your phone number</string>
+    <string name="hiphon">------</string>
 </resources>
