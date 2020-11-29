@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.whatsappclone.R;
 import com.whatsappclone.activitys.mainSession.contactsSession.ContactsActivity;
+import com.whatsappclone.database.ContactsDatabase;
 import com.whatsappclone.database.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         viewPage = findViewById(R.id.pager);
         tabLayout = findViewById(R.id.tab_layout);
 
+        new ContactsDatabase(this).clearTable();
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),4);
         viewPage.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPage);

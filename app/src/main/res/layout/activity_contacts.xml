@@ -16,5 +16,81 @@
         android:background="@color/primary_colour"
         app:menu="@menu/contacts_menu"
         />
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@drawable/clickable_layout"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/user_icon"
+                android:id="@+id/profile_image"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/profile_image"
+                android:text="Aaa"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:ignore="RtlCompat" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@drawable/clickable_layout"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/user_icon"
+                android:id="@+id/profile_imagea"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/profile_imagea"
+                android:text="Aaa"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:ignore="RtlCompat" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout"
+        android:id="@+id/contacts_recycler_view"
+        />
 
 </RelativeLayout>
