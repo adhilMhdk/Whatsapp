@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsappClone"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activitys.phoneAuht.PhoneAuthActivityb"></activity>
+        <activity android:name=".activitys.mainSession.contactsSession.ContactsActivity"></activity>
+        <activity android:name=".activitys.mainSession.MainActivity" />
+        <activity android:name=".activitys.phoneAuht.PhoneAuthActivityc" />
+        <activity android:name=".activitys.phoneAuht.PhoneAuthActivityb" />
         <activity android:name=".activitys.phoneAuht.PhoneAuthActivitia" />
         <activity android:name=".activitys.PhoneAuthActivity" />
         <activity android:name=".activitys.StartActivity">

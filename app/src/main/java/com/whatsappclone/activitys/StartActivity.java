@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.whatsappclone.R;
+import com.whatsappclone.activitys.mainSession.MainActivity;
+import com.whatsappclone.activitys.phoneAuht.PhoneAuthActivityc;
+import com.whatsappclone.database.User;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -14,6 +17,17 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_main);
-        startActivity(new Intent(this,PhoneAuthActivity.class));
+
+        User user = new User(this);
+        if (user.getPhone()==null){
+            startActivity(new Intent(this,PhoneAuthActivity.class));
+        }else if (user.getName()==null){
+            startActivity(new Intent(this, PhoneAuthActivityc.class));
+        }else{
+            startActivity(new Intent(this, MainActivity.class));
+
+        }
+        finish();
+
     }
 }
