@@ -24,9 +24,11 @@ import retrofit2.Response;
 public class ContactsRecyclerAdapter extends RecyclerView.Adapter<ContactsRecyclerAdapter.ViewHolder> {
 
     ArrayList<ContactsModel> models;
+    OnClickListener onClickListener;
 
-    public ContactsRecyclerAdapter(ArrayList<ContactsModel> models) {
+    public ContactsRecyclerAdapter(ArrayList<ContactsModel> models, OnClickListener onClickListener) {
         this.models = models;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -38,6 +40,9 @@ public class ContactsRecyclerAdapter extends RecyclerView.Adapter<ContactsRecycl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.profileName.setText(models.get(position).getName());
+        if (models.get(position).getImage()!=null){
+            Picasso.get().load(models.get(position).getImage()).into(holder.profileImage);
+        }
     }
 
     @Override
@@ -53,8 +58,20 @@ public class ContactsRecyclerAdapter extends RecyclerView.Adapter<ContactsRecycl
             profileImage = itemView.findViewById(R.id.profile_image);
             profileName = itemView.findViewById(R.id.profile_name);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.recyclerItemClick(getAdapterPosition());
+                }
+            });
 
         }
+
     }
+    public interface OnClickListener{
+        void recyclerItemClick(int AdapterPosition);
+    }
+
+
 
 }

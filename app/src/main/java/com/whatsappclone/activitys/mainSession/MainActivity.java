@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         viewPage = findViewById(R.id.pager);
         tabLayout = findViewById(R.id.tab_layout);
 
-        new ContactsDatabase(this).clearTable();
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),4);
         viewPage.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPage);

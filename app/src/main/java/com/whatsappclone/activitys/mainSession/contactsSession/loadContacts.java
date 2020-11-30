@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.squareup.picasso.Picasso;
 import com.whatsappclone.database.ContactsDatabase;
 import com.whatsappclone.modelClass.ContactsModel;
 import com.whatsappclone.serverHelpers.Server;
@@ -72,23 +73,60 @@ public class loadContacts extends Thread {
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.code()==200 ){
 
-                                        for (int i=0 ;i<=contactsModels.size()-1;i++){
-                                            String p = contactsModels.get(i).getPhone().replace(" ", "").replace("+","");
-                                            if (p.equals(phoneNo)){
-                                                contains = true;
-                                                break;
-                                            }
-                                        }
 
-                                        if (!contains) {
 
-                                            Log.e(TAG, "getContactList: name : " + name + " , phone : " + phoneNo);
-                                            contactsDatabase.setDetails(phoneNo, name, null);
-                                            ContactsModel model = new ContactsModel();
-                                            model.setName(name);
-                                            model.setPhone(phoneNo);
-                                            contactsModels.add(model);
-                                        }
+                                            HashMap<String,String> map = new HashMap<>();
+                                            map.put("phone",phoneNo);
+                                            Call<Void> calla= new Server().getRetrofitInterface().checkUserImage(map);
+                                            calla.enqueue(new Callback<Void>() {
+                                                @Override
+                                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                                    if (response.code()==200){
+                                                        for (int i=0 ;i<=contactsModels.size()-1;i++){
+                                                            String p = contactsModels.get(i).getPhone().replace(" ", "").replace("+","");
+                                                            if (p.equals(phoneNo)){
+                                                                contains = true;
+                                                                break;
+                                                            }
+                                                        }
+
+                                                        if (!contains) {
+                                                            String imageUrl = new Server().getBASE_URL() + "profile_images/+" + phoneNo + "b.png";
+
+                                                            Log.e(TAG, "getContactList: name : " + name + " , phone : " + phoneNo);
+                                                            contactsDatabase.setDetails(phoneNo, name, imageUrl);
+                                                            ContactsModel model = new ContactsModel();
+                                                            model.setName(name);
+                                                            model.setPhone(phoneNo);
+                                                            contactsModels.add(model);
+                                                        }
+                                                    }else {
+                                                        for (int i = 0; i <= contactsModels.size() - 1; i++) {
+                                                            String p = contactsModels.get(i).getPhone().replace(" ", "").replace("+", "");
+                                                            if (p.equals(phoneNo)) {
+                                                                contains = true;
+                                                                break;
+                                                            }
+                                                        }
+
+                                                        if (!contains) {
+                                                            Log.e(TAG, "getContactList: name : " + name + " , phone : " + phoneNo);
+                                                            contactsDatabase.setDetails(phoneNo, name, null);
+                                                            ContactsModel model = new ContactsModel();
+                                                            model.setName(name);
+                                                            model.setPhone(phoneNo);
+                                                            contactsModels.add(model);
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                                }
+                                            });
+
+
                                     }
                                 }
 
@@ -119,5 +157,9 @@ public class loadContacts extends Thread {
     }
     public interface Load{
         public void onLoaded();
+    }
+    private void setProfileImage() {
+        //checking user have profile image
+
     }
 }

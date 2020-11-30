@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -17,12 +18,13 @@ import android.view.Menu;
 import android.view.View;
 
 import com.whatsappclone.R;
+import com.whatsappclone.activitys.mainSession.chatSession.ChatActivity;
 import com.whatsappclone.database.ContactsDatabase;
 import com.whatsappclone.modelClass.ContactsModel;
 
 import java.util.ArrayList;
 
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends AppCompatActivity implements ContactsRecyclerAdapter.OnClickListener {
 
     Toolbar toolbar;
     ArrayList<ContactsModel> contactsModels;
@@ -70,6 +72,7 @@ public class ContactsActivity extends AppCompatActivity {
         }
         setRecyclerView();
 
+
     }
 
     @Override
@@ -97,10 +100,21 @@ public class ContactsActivity extends AppCompatActivity {
 
 
     public void setAdapter() {
-        adapter = new ContactsRecyclerAdapter(contactsDatabase.getContacts());
+        contactsModels = contactsDatabase.getContacts();
+        adapter = new ContactsRecyclerAdapter(contactsDatabase.getContacts(),this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
 
+    @Override
+    public void recyclerItemClick(int AdapterPosition) {
+
+        startActivity(new Intent(ContactsActivity.this, ChatActivity.class)
+                .putExtra("phone",contactsModels.get(AdapterPosition).getPhone())
+                .putExtra("name",contactsModels.get(AdapterPosition).getName())
+                .putExtra("image",contactsModels.get(AdapterPosition).getImage())
+
+        );
+    }
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/chat_background"
+
+    android:layout_height="match_parent"
+    tools:context=".activitys.mainSession.chatSession.ChatActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_colour"
+        app:navigationIcon="?homeAsUpIndicator"
+        app:collapseIcon="@mipmap/user_icon"
+        app:menu="@menu/chat_menu"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="-20dp"
+            android:id="@+id/profile_image"
+            android:src="@mipmap/user_icon"
+            android:layout_marginLeft="-20dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/group_name"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/chat_box_background"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/send"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/send"
+            android:layout_alignParentLeft="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginStart="5dp"
+                android:id="@+id/emoji"
+                android:layout_width="40dp"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:src="@drawable/smilie_foreground"
+                android:layout_marginLeft="5dp" />
+
+            <EditText
+                android:hint="@string/type_a_message"
+
+                android:layout_toEndOf="@id/emoji"
+                android:layout_width="match_parent"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_toLeftOf="@id/attach"
+                android:layout_toRightOf="@id/emoji"
+                android:layout_toStartOf="@id/attach" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/attach"
+                android:layout_width="40dp"
+                android:rotation="45"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/camera"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:src="@drawable/pin_icon_foreground"
+                android:layout_toLeftOf="@id/camera" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/camera"
+                android:layout_alignParentEnd="true"
+                android:layout_width="40dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:src="@drawable/camera_iconb_foreground"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="45dp"
+            android:src="@mipmap/send_icon"
+            android:id="@+id/send"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

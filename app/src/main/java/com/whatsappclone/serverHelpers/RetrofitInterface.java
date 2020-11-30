@@ -32,5 +32,11 @@ public interface RetrofitInterface {
     @POST("/user/name/check")
     Call<Void> checkUser(@Body HashMap<String, String> map);
 
+    @POST("/user/image/check")
+    Call<Void> checkUserImage(@Body HashMap<String, String> map);
+
+    @POST("/message/send/text")
+    Call<Void> sendTextMessage(@Body HashMap<String, String> map);
+
 
 }
