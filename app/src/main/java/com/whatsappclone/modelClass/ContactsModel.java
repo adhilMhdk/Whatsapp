@@ -1,11 +1,21 @@
 package com.whatsappclone.modelClass;
 
 public class ContactsModel {
-    String phone,name;
+    String phone,name,image;
 
-    public ContactsModel(String phone, String name) {
+
+    public ContactsModel(String phone, String name, String image) {
         this.phone = phone;
         this.name = name;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public ContactsModel() {

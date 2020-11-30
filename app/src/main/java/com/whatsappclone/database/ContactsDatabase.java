@@ -16,6 +16,7 @@ public class ContactsDatabase extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "PEOPLES";
     private static final String PHONE = "PHONE" ;
     private static final String NAME = "NAME";
+    private static final String IMAGE = "IMAGE";
 
     public ContactsDatabase(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -23,7 +24,7 @@ public class ContactsDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create="create table "+TABLE_NAME+"(ID INTEGER primary key ,"+PHONE+" TEXT,"+NAME+" TEXT)";
+        String create="create table "+TABLE_NAME+"(ID INTEGER primary key ,"+PHONE+" TEXT,"+NAME+" TEXT,"+IMAGE+" TEXT)";
         db.execSQL(create);
     }
 
@@ -32,12 +33,13 @@ public class ContactsDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
     }
 
-    public void setDetails(String phone,String name){
+    public void setDetails(String phone,String name,String image){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(PHONE, phone);
         values.put(NAME, name);
+        values.put(IMAGE,image);
 
         db.insert(TABLE_NAME,null,values);
     }
@@ -54,9 +56,11 @@ public class ContactsDatabase extends SQLiteOpenHelper {
                 while (!cursor.isAfterLast()) {
                     String name = cursor.getString(cursor.getColumnIndex(NAME));
                     String phone = cursor.getString(cursor.getColumnIndex(PHONE));
+                    String image = cursor.getString(cursor.getColumnIndex(IMAGE));
                     ContactsModel model = new ContactsModel();
                     model.setName(name);
                     model.setPhone(phone);
+                    model.setImage(image);
                     contacts.add(model);
                     cursor.moveToNext();
                 }

@@ -29,5 +29,8 @@ public interface RetrofitInterface {
     @POST("/user/name/set")
     Call<Void> setName(@Body HashMap<String, String> map);
 
+    @POST("/user/name/check")
+    Call<Void> checkUser(@Body HashMap<String, String> map);
+
 
 }

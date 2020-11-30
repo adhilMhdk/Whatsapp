@@ -8,9 +8,15 @@ import android.util.Log;
 
 import com.whatsappclone.database.ContactsDatabase;
 import com.whatsappclone.modelClass.ContactsModel;
+import com.whatsappclone.serverHelpers.Server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.Consumer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class loadContacts extends Thread {
 
@@ -55,29 +61,57 @@ public class loadContacts extends Thread {
                     while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER)).replace(" ","").replace("+","");
-                        Boolean contains= false;
 
-                        for (int i=0 ;i<=contactsModels.size()-1;i++){
-                            String p = contactsModels.get(i).getPhone().replace(" ", "").replace("+","");
-                            if (p.equals(phoneNo)){
-                                contains = true;
-                                break;
-                            }
-                        }
-                        if (!contains) {
-                            contactsDatabase.setDetails(phoneNo, name);
-                            ContactsModel model = new ContactsModel();
-                            model.setName(name);
-                            model.setPhone(phoneNo);
-                            contactsModels.add(model);
+                        HashMap<String,String> map = new HashMap<>();
+                            map.put("phone","+"+phoneNo);
+                            Call<Void> call = new Server().getRetrofitInterface().checkUser(map);
+                            call.enqueue(new Callback<Void>() {
+                                private boolean contains = false;
+
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.code()==200 ){
+
+                                        for (int i=0 ;i<=contactsModels.size()-1;i++){
+                                            String p = contactsModels.get(i).getPhone().replace(" ", "").replace("+","");
+                                            if (p.equals(phoneNo)){
+                                                contains = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (!contains) {
+
+                                            Log.e(TAG, "getContactList: name : " + name + " , phone : " + phoneNo);
+                                            contactsDatabase.setDetails(phoneNo, name, null);
+                                            ContactsModel model = new ContactsModel();
+                                            model.setName(name);
+                                            model.setPhone(phoneNo);
+                                            contactsModels.add(model);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+
+
+
                         }
 
-                    }
+
                     pCur.close();
                 }
             }
-            Log.e(TAG, "getContactList: ENDED" );
-            load.onLoaded();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    load.onLoaded();
+                }
+            });
         }
         if(cur!=null){
             cur.close();

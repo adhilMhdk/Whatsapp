@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,12 +17,19 @@ import android.view.Menu;
 import android.view.View;
 
 import com.whatsappclone.R;
+import com.whatsappclone.database.ContactsDatabase;
 import com.whatsappclone.modelClass.ContactsModel;
 
-public class ContactsActivity extends AppCompatActivity implements loadContacts.Load{
+import java.util.ArrayList;
+
+public class ContactsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    ContactsModel[] model;
+    ArrayList<ContactsModel> contactsModels;
+    RecyclerView recyclerView;
+    ContactsRecyclerAdapter adapter;
+    ContactsDatabase contactsDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,14 @@ public class ContactsActivity extends AppCompatActivity implements loadContacts.
         setContentView(R.layout.activity_contacts);
 
         init();
+    }
+
+    public void setRecyclerView() {
+        recyclerView = findViewById(R.id.contacts_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        contactsDatabase = new ContactsDatabase(this);
+        setAdapter();
     }
 
     private void init() {
@@ -44,8 +61,14 @@ public class ContactsActivity extends AppCompatActivity implements loadContacts.
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},1);
         }else{
-            new loadContacts(this,this).start();
+            new loadContacts(this, new loadContacts.Load() {
+                @Override
+                public void onLoaded() {
+                    setAdapter();
+                }
+            }).start();
         }
+        setRecyclerView();
 
     }
 
@@ -53,7 +76,12 @@ public class ContactsActivity extends AppCompatActivity implements loadContacts.
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode==1) {
-            new loadContacts(this,this).start();
+            new loadContacts(this, new loadContacts.Load() {
+                @Override
+                public void onLoaded() {
+                    setAdapter();
+                }
+            }).start();
         } else {
 
         }
@@ -66,8 +94,13 @@ public class ContactsActivity extends AppCompatActivity implements loadContacts.
         return true;
     }
 
-    @Override
-    public void onLoaded() {
 
+
+    public void setAdapter() {
+        adapter = new ContactsRecyclerAdapter(contactsDatabase.getContacts());
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
+
+
 }
