@@ -5,8 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Server {
 
+    String jio = "192.168.225.106";
+    String hotspot = "192.168.43.198";
     public RetrofitInterface retrofitInterface;
-    public String BASE_URL = "http://192.168.43.198:3000/";
+    public String BASE_URL = "http://"+jio+":3000/";
 
     public Server() {
         Retrofit retrofit = new Retrofit.Builder()
